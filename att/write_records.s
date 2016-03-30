@@ -77,6 +77,7 @@ _start:
  # Write the second record
  pushq ST_FILE_DESCRIPTOR(%rbp)
  pushq $record2
+ call write_record
  addq $16, %rsp
 
  # Close the file descriptor
