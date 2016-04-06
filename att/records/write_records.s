@@ -22,7 +22,7 @@ record1:
  .endr
 
  .ascii "4242 suth prairie\nsomewhereville, OK 55555\0"
- .rept 209 # Padding to 240 bytes
+ .rept 197 # Padding to 240 bytes
  .byte 0
  .endr
 
@@ -41,17 +41,56 @@ record2:
  .endr
 
  .ascii "2222 S johannan st\nnowheresville, IL 12345\0"
- .rept 203
+ .rept 197
  .byte 0
  .endr
 
  .long 29
+
+record3:
+ .ascii "Joe\0"
+ .rept 36
+ .byte 0
+ .endr
+
+ .ascii "Johnson\0"
+ .rept 32
+ .byte 0
+ .endr
+
+ .ascii "1234 somestreet\nnew york, NY 12345\0"
+ .rept 205
+ .byte 0
+ .endr
+
+ .long 24
+
+record4:
+ .ascii "Jeb\0"
+ .rept 36
+ .byte 0
+ .endr
+
+ .ascii "Jackson\0"
+ .rept 32
+ .byte 0
+ .endr
+
+ .ascii "1234 somestreet\nnew york, NY 12345\0"
+ .rept 205
+ .byte 0
+ .endr
+
+ .long 55
 
 # The name of the file we will write to
 file_name:
  .ascii "test.dat\0"
 
  .equ ST_FILE_DESCRIPTOR, -8
+
+.section .text
+
  .globl _start
 _start:
  # Copy the stack pointer to %rbp, and save space for 2 parameters on the stack
@@ -77,6 +116,18 @@ _start:
  # Write the second record
  pushq ST_FILE_DESCRIPTOR(%rbp)
  pushq $record2
+ call write_record
+ addq $16, %rsp
+
+ # Write the third record
+ pushq ST_FILE_DESCRIPTOR(%rbp)
+ pushq $record3
+ call write_record
+ addq $16, %rsp
+
+ # Write the fourth record
+ pushq ST_FILE_DESCRIPTOR(%rbp)
+ pushq $record4
  call write_record
  addq $16, %rsp
 

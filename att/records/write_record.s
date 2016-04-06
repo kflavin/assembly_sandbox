@@ -22,7 +22,7 @@ write_record:
  movq $RECORD_SIZE, %rdx
  syscall
 
- # %eax as the return value which we will give back to the caller
+ # %rax as the return value which we will give back to the caller
  popq %rbx
 
  movq %rbp, %rsp
