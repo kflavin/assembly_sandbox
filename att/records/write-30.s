@@ -10,7 +10,7 @@ record1:
  .endr
 
  .ascii "Tommerson\0"
- .rept 31
+ .rept 30
  .byte 0
  .endr
 

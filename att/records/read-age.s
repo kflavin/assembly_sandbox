@@ -34,18 +34,30 @@ _start:
  movq $STDOUT, ST_OUTPUT_DESCRIPTOR(%rbp)
 
 record_read_loop:
- movq $5, %rdx
+ pushq ST_INPUT_DESCRIPTOR(%rbp)
+ pushq $record_buffer
+ call read_record
+ addq $16, %rsp
+
+ cmpq $RECORD_SIZE, %rax
+ jne finished_reading
+
+ pushq $RECORD_FIRSTNAME + record_buffer
+ call count_chars
+ addq $8, %rsp
+
+ movq %rax, %rdx
  movq ST_OUTPUT_DESCRIPTOR(%rbp), %rdi
  movq $SYS_WRITE, %rax
- #movq $RECORD_AGE + record_buffer, %rsi
- movq $99, %rsi
+ movq $RECORD_AGE + record_buffer, %rsi
+ #movq $99, %rsi
  syscall
 
  pushq ST_OUTPUT_DESCRIPTOR(%rbp)
  call write_newline
  addq $8, %rsp
 
- #jmp record_read_loop
+ jmp record_read_loop
 
 finished_reading:
  movq $SYS_EXIT, %rax

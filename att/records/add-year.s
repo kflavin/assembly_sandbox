@@ -29,6 +29,24 @@ _start:
  movq $0666, %rdx
  syscall
 
+ # Test if %rax is negative and exit if so.
+ cmpq $0, %rax
+ jge continue_processing
+
+ # Send the error
+ .section .data
+ no_open_file_code:
+  .ascii "0001: \0"
+ no_open_file_msg:
+  .ascii "Can't open Input File\0"
+
+  .section .text
+  pushq $no_open_file_msg
+  pushq $no_open_file_code
+  call error_exit
+
+continue_processing:
+
  # Save the returned file descriptor
  movq %rax, ST_INPUT_DESCRIPTOR(%rbp)
 
