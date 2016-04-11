@@ -4,7 +4,7 @@
 # $ as -g helloworld-lib.s -o helloworld-lib.o
 # $ ld -dynamic-linker /lib64/ld-linux-x86-64.so.2 /usr/lib/x86_64-linux-gnu/crt1.o /usr/lib/x86_64-linux-gnu/crti.o -lc -o helloworld-lib helloworld-lib.o /usr/lib/x86_64-linux-gnu/crtn.o
 #
-# ...or using gcc
+# ...or using gcc (gcc complains about _start, but I believe as needs it.  Swap back in as necessary.)
 # $ gcc helloworld-lib.s -o helloworld-lib
 
 .section .data

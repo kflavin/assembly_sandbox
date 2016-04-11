@@ -1,3 +1,6 @@
+# To compile as a shaerd library
+# $ ld -shared write-record.o read-record.o -o librecord.so
+
 .include "record-def.s"
 .include "linux.s"
 

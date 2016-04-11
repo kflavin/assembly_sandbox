@@ -1,3 +1,6 @@
+# To compile as a shared library
+# $ ld -shared write-record.o read-record.o -o librecord.so
+
 .include "linux.s"
 .include "record-def.s"
 

@@ -1,3 +1,8 @@
+# To link against the dynamic library:
+# $ ld -L . -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o write_records2 -lrecord write_records.o
+# Be sure to export LD_LIBRARY_PATH=. or put the librecord.so library somewhere in the path.
+
+
 .include "linux.s"
 .include "record-def.s"
 
